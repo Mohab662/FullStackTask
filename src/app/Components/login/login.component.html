@@ -1,0 +1,35 @@
+<section class="register w-75 mx-auto shadow rounded p-4 my-3 bg-main-light">
+  <form [formGroup]="loginForm" (ngSubmit)="handleForm()">
+    <h2 class="mb-4">Login Now</h2>
+
+    <!-- Email -->
+    <div class="formIteam mb-3">
+      <label for="email">Email</label>
+      <input formControlName="email" type="email" id="email" class="form-control">
+      <div class="alert alert-danger mt-1" *ngIf="loginForm.get('email')?.errors && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)">
+        {{ getErrorMessage('email') }}
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="formIteam mb-3">
+      <label for="password">Password</label>
+      <input formControlName="password" type="password" id="password" class="form-control">
+      <div class="alert alert-danger mt-1" *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)">
+        {{ getErrorMessage('password') }}
+      </div>
+    </div>
+
+
+    <div class="d-flex justify-content-between align-items-center">
+      <a class="forgetA text-main" [routerLink]="['/forget-pass']">Forget Password ?</a>
+      <button class="main-btn ms-auto d-block" type="submit" [disabled]="loginForm.invalid">
+        Login
+        <span *ngIf="isLoading"><i class="fas fa-spin fa-spinner"></i></span>
+      </button>
+    </div>
+  </form>
+
+
+  <p *ngIf="errMsg" class="alert alert-danger text-center p-2 w-75 mx-auto mt-3">{{ errMsg }}</p>
+</section>

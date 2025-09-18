@@ -1,0 +1,48 @@
+<section class="register w-75 mx-auto shadow rounded p-4 my-3 bg-main-light">
+  <form [formGroup]="registerForm" (ngSubmit)="handleForm()">
+    <h2 class="mb-4">Register Now</h2>
+
+    <!-- User Name -->
+    <div class="formIteam mb-3">
+      <label for="userName">User Name</label>
+      <input formControlName="userName" type="text" id="userName" class="form-control">
+      <div class="alert alert-danger mt-1" *ngIf="registerForm.get('userName')?.errors && (registerForm.get('userName')?.touched || registerForm.get('userName')?.dirty)">
+        {{ getErrorMessage('userName') }}
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="formIteam mb-3">
+      <label for="email">Email</label>
+      <input formControlName="email" type="email" id="email" class="form-control">
+      <div class="alert alert-danger mt-1" *ngIf="registerForm.get('email')?.errors && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
+        {{ getErrorMessage('email') }}
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="formIteam mb-3">
+      <label for="password">Password</label>
+      <input formControlName="password" type="password" id="password" class="form-control">
+      <div class="alert alert-danger mt-1" *ngIf="registerForm.get('password')?.errors && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)">
+        {{ getErrorMessage('password') }}
+      </div>
+    </div>
+
+    <!-- Re-Password -->
+    <div class="formIteam mb-3">
+      <label for="rePassword">Confirm Password</label>
+      <input formControlName="rePassword" type="password" id="rePassword" class="form-control">
+      <div class="alert alert-danger mt-1" *ngIf="registerForm.get('rePassword')?.errors && (registerForm.get('rePassword')?.touched || registerForm.get('rePassword')?.dirty)">
+        {{ getErrorMessage('rePassword') }}
+      </div>
+    </div>
+
+    <button class="main-btn ms-auto d-block" type="submit" [disabled]="registerForm.invalid">
+      Register
+      <span *ngIf="isLoading"><i class="fas fa-spin fa-spinner"></i></span>
+    </button>
+  </form>
+
+  <p *ngIf="errMsg" class="alert alert-danger text-center p-2 w-75 mx-auto mt-3">{{ errMsg }}</p>
+</section>

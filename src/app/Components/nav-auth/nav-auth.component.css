@@ -1,0 +1,13 @@
+/* اللوجو نفسه */
+.log-img img {
+  width: 20%;   /* صغر العرض */
+  height: auto;  /* يحافظ على النسبة */
+  object-fit: contain; /* يمنع التشوه */
+}
+
+
+.log-img {
+  display: flex;          
+  align-items: center;
+  margin-right: 10px; 
+}

@@ -1,0 +1,82 @@
+<section class="container py-4">
+  <h2 class="mb-3">Add Product</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row g-3">
+      
+      <!-- Name -->
+      <div class="col-md-6">
+        <label>Name</label>
+        <input type="text" class="form-control" formControlName="name">
+        <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="text-danger small">
+          <div *ngIf="form.get('name')?.hasError('required')">Name is required.</div>
+          <div *ngIf="form.get('name')?.hasError('pattern')">Invalid name format.</div>
+        </div>
+      </div>
+
+      <!-- Code -->
+      <div class="col-md-6">
+        <label>Code</label>
+        <input type="text" class="form-control" formControlName="code">
+        <div *ngIf="form.get('code')?.touched && form.get('code')?.invalid" class="text-danger small">
+          <div *ngIf="form.get('code')?.hasError('required')">Code is required.</div>
+          <div *ngIf="form.get('code')?.hasError('pattern')">Invalid code format.</div>
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="col-md-6">
+        <label>Category</label>
+        <input type="text" class="form-control" formControlName="category">
+        <div *ngIf="form.get('category')?.touched && form.get('category')?.invalid" class="text-danger small">
+          <div *ngIf="form.get('category')?.hasError('required')">Category is required.</div>
+          <div *ngIf="form.get('category')?.hasError('pattern')">Invalid category format.</div>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="col-md-3">
+        <label>Price</label>
+        <input type="number" class="form-control" formControlName="price">
+        <div *ngIf="form.get('price')?.touched && form.get('price')?.invalid" class="text-danger small">
+          <div *ngIf="form.get('price')?.hasError('required')">Price is required.</div>
+          <div *ngIf="form.get('price')?.hasError('min')">Price must be greater than 0.</div>
+          <div *ngIf="form.get('price')?.hasError('max')">Price is too high.</div>
+        </div>
+      </div>
+
+      <!-- Discount -->
+      <div class="col-md-3">
+        <label>Discount Rate</label>
+        <input type="number" class="form-control" formControlName="discountRate" min="1" max="100" step="0.01">
+        <div *ngIf="form.get('discountRate')?.touched && form.get('discountRate')?.invalid" class="text-danger small">
+          <div *ngIf="form.get('discountRate')?.hasError('required')">Discount is required.</div>
+          <div *ngIf="form.get('discountRate')?.hasError('min')">Discount can't be negative.</div>
+          <div *ngIf="form.get('discountRate')?.hasError('max')">Discount can't exceed 100%.</div>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="col-12">
+        <label>Image</label>
+        <input type="file" class="form-control" (change)="onFileChange($event)" accept="image/*">
+        <div *ngIf="form.get('imageFile')?.touched && form.get('imageFile')?.invalid" class="text-danger small">
+          <div *ngIf="form.get('imageFile')?.hasError('required')">Image is required.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-3 d-flex gap-2">
+      <button class="btn btn-success" type="submit" [disabled]="form.invalid || isLoading">
+        Add
+        <span *ngIf="isLoading"><i class="fas fa-spin fa-spinner"></i></span>
+      </button>
+      <a class="btn btn-secondary" [routerLink]="['/products']">Cancel</a>
+    </div>
+  </form>
+
+  <p *ngIf="errMsg" class="alert alert-danger mt-3">{{errMsg}}</p>
+</section>
+
+

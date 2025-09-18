@@ -1,0 +1,67 @@
+
+<section class="py-4">
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <h2 class="fw-bold mb-0">My Products</h2>
+        <div>
+            <a class="btn btn-primary me-2" [routerLink]="['/add-product']">Add Product</a>
+            <button class="btn btn-outline-danger" (click)="onDeleteAll()" [disabled]="products.length===0">Delete All</button>
+        </div>
+    </div>
+    <div *ngIf="isLoading" class="alert alert-secondary w-100 d-flex justify-content-center">Loading products...</div>
+    <div *ngIf="!isLoading&&products.length===0 " class="alert alert-info">No products yet. Click "Add Product" to create one.</div>
+    <div class="row justify-content-center g-4" *ngIf="products.length>0">
+        <div *ngFor="let product of products|paginate:{ id: 'productPaginate',
+        itemsPerPage: pageSize,
+        currentPage: currentPage,
+        totalItems: total }" class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+<div class="product h-100 overflow-hidden">
+  <header>
+    <div class="img-edit">
+      <img [src]="baseImageUrl + product.imageName" [title]="product.name" [alt]="product.name">
+    </div>
+    <div>
+      <h3 class="h6">{{product.name}}</h3>
+      <h3 class="h6 text-main">{{product.category}}</h3>
+
+      <div class="small d-flex align-items-center justify-content-center flex-column">
+        <!-- السعر الأصلي متشطب -->
+        <span class="text-muted" style="text-decoration: line-through;">
+          {{ product.price | currency:'e£' }}
+        </span>
+
+        <!-- السعر بعد الخصم -->
+        <span class="text-success fw-bold">
+          {{ getDiscountedPrice(product) | currency:'e£' }}
+         </span>
+      </div>
+    </div>
+  </header>
+
+  <footer class="d-flex justify-content-between align-items-center p-2">
+    <button class="btn btn-sm btn-outline-danger" 
+            (click)="$event.stopPropagation(); onDelete(product.code)">
+      Delete
+    </button>
+  </footer>
+</div>
+
+        </div>
+    </div>
+    <div class="d-flex justify-content-center my-4" *ngIf="products.length>0">
+        <pagination-controls  id="productPaginate"
+        (pageChange)="pageChanged($event)"
+        (pageBoundsCorrection)="pageChanged($event)"
+        [maxSize]="9"
+        [directionLinks]="true"
+        [autoHide]="true"
+        [responsive]="true"
+        previousLabel="Previous"
+        nextLabel="Next"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="page"
+        screenReaderCurrentLabel="You're on page">
+</pagination-controls>
+    </div>
+
+    
+</section>

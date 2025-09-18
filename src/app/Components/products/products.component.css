@@ -1,0 +1,30 @@
+.product {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.product .img-edit {
+  width: 100%;
+  height: 200px; /* خليها الحجم اللي يناسبك */
+  overflow: hidden;
+  border-radius: 8px; /* شكل لطيف للصور */
+}
+
+.product .img-edit img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* يخلي الصورة تتظبط وتقص الزيادة */
+  display: block;
+}
+
+.product h3 {
+  margin: 10px 0 5px;
+}
+
+.product .small {
+  margin-top: 5px;
+}
