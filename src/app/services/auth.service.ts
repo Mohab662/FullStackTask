@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
 
   constructor(private _HttpClient:HttpClient) { }
 
-  baseUrl:string=`/api/Auth/`;
+  baseUrl:string=`${environment.apiUrl}/Auth/`;
   
   Register(userData:{userName:string; email:string; password:string;}):Observable<any>{
     return this._HttpClient.post(this.baseUrl + 'register',userData);
